@@ -16,9 +16,7 @@ export default function MyApp() {
       },
       body: JSON.stringify({ userInfo, companyInfo }),
     });
-    console.log(response);
     const data = await response.json();
-    console.log(data);
     const { output } = data;
     console.log("Groq replied...", output);
 

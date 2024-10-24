@@ -8,7 +8,7 @@ const client = new OpenAI({
 
 export async function POST(request, response) {
   const body = await request.body;
-  console.log(body);
+
   const { userInfo, companyInfo } = body;
 
   const prompt = `
