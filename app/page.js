@@ -167,7 +167,7 @@ export default function LandingPage() {
                       time."
                     </p>
                     <p className="font-semibold">
-                      - Sarah T., Software Engineer
+                      - Jane Doe, Software Engineer
                     </p>
                   </CardContent>
                 </Card>
@@ -179,7 +179,7 @@ export default function LandingPage() {
                       writer at your fingertips."
                     </p>
                     <p className="font-semibold">
-                      - Mark R., Marketing Manager
+                      - John Doe, Marketing Manager
                     </p>
                   </CardContent>
                 </Card>
