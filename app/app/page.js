@@ -76,7 +76,12 @@ export default function MyApp() {
         </form>
         <div className="flex p-5 flex-wrap w-full">
           <article className="w-full border border-1 rounded text-sm p-4">
-            {result}
+            {/* {result} */}
+            {result.split("\n").map((paragraph, index) => (
+              <p key={index} className="mb-2">
+                {paragraph}
+              </p>
+            ))}
           </article>
         </div>
       </div>
