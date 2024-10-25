@@ -7,7 +7,8 @@ const client = new OpenAI({
 });
 
 export async function POST(request, response) {
-  const body = await request.body;
+  const body = await request.json();
+  console.log({ body });
 
   const { userInfo, companyInfo } = body;
 

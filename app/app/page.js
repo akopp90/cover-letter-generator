@@ -7,26 +7,46 @@ export default function MyApp() {
   const [result, setResult] = useState("");
 
   const callAPI = async (userInfo, companyInfo) => {
+    console.log("userInfo:", userInfo);
+    console.log("companyInfo:", companyInfo);
     setResult("AI is generating ...");
+    const requestBody = {
+      userInfo: userInfo,
+      companyInfo: companyInfo,
+    };
+    try {
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
 
-    const response = await fetch("/api/generate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ userInfo, companyInfo }),
-    });
-    const data = await response.json();
-    const { output } = data;
-    console.log("Groq replied...", output);
+      console.log("Response status:", response.status);
+      console.log("Response headers:", response.headers);
 
-    setResult(output);
+      const responseText = await response.text();
+      console.log("Raw response:", responseText);
+
+      const data = responseText ? JSON.parse(responseText) : {};
+      console.log("Parsed data:", data);
+
+      const { output } = data;
+      console.log("Groq replied...", output);
+
+      setResult(output);
+    } catch (error) {
+      console.error("API call error:", error);
+      setResult("Error generating content. Please try again.");
+    }
   };
   const handleSubmit = (event) => {
     event.preventDefault();
     const formElements = event.target.elements;
     const userInfo = formElements.userInfo.value;
     const companyInfo = formElements.companyInfo.value;
+
     callAPI(userInfo, companyInfo);
   };
 
@@ -54,9 +74,9 @@ export default function MyApp() {
           />
           <Button className={"mt-2"}>Generate</Button>
         </form>
-        <div className="flex w-fit p-5 flex-wrap">
-          <article className="w-full border border-1 rounded text-sm">
-            <pre className="flex flex-wrap">{result}</pre>
+        <div className="flex p-5 flex-wrap w-full">
+          <article className="w-full border border-1 rounded text-sm p-4">
+            {result}
           </article>
         </div>
       </div>
